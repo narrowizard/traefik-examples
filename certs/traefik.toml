@@ -1,0 +1,26 @@
+[global]
+  checkNewVersion = true
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+  [entryPoints.https]
+    address = ":443"
+
+[log]
+  filePath = "/etc/traefik/logs/traefik.log"
+
+[accessLog]
+  filePath = "/etc/traefik/logs/access.log"
+
+[certificatesResolvers.http]
+  [certificatesResolvers.http.acme]
+    email = "501xs05@163.com"
+    storage = "/etc/traefik/acme/acme.json"
+    [certificatesResolvers.http.acme.httpChallenge]
+      entryPoint = "http"
+
+[providers]
+  [providers.file]
+    watch = true
+    directory = "/etc/traefik/toml"

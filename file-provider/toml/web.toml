@@ -1,0 +1,12 @@
+[http]
+  [http.routers]
+    [http.routers.whoami]
+      entryPoints = ["web", "web-secure"]
+      rule = "Host(`whoami.narro.me`)"
+      service = "whoami"
+
+  [http.services]
+    [http.services.whoami]
+      [http.services.whoami.loadBalancer]
+        [[http.services.whoami.loadBalancer.servers]]
+          url = "http://whoami:80"

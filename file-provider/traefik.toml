@@ -1,0 +1,19 @@
+[global]
+  checkNewVersion = true
+
+[log]
+  filePath = "/etc/traefik/logs/traefik.log"
+
+[accessLog]
+  filePath = "/etc/traefik/logs/access.log"
+
+[providers]
+  [providers.file]
+    watch = true
+    directory = "/etc/traefik/toml"
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+  [entryPoints.web-secure]
+    address = ":443"
