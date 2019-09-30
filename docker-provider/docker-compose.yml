@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    # The official v2.0 Traefik docker image
+    image: traefik:v2.0
+    ports:
+      # The HTTP port
+      - "80:80"
+      - "443:443"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /home/data/traefik:/etc/traefik
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    # A container that exposes an API to show its IP address
+    image: containous/whoami
+    labels:
+     - "traefik.http.routers.whoami.rule=Host(`whoami.narro.me`)"
