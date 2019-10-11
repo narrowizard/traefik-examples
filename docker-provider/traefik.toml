@@ -9,9 +9,18 @@
 
 [providers]
   [providers.docker]
+  exposedByDefault = false
 
 [entryPoints]
   [entryPoints.web]
     address = ":80"
   [entryPoints.web-secure]
     address = ":443"
+
+# let's encrypt config
+[certificatesResolvers.http]
+  [certificatesResolvers.http.acme]
+    email = "501xs05@163.com"
+    storage = "/etc/traefik/acme/acme.json"
+    [certificatesResolvers.http.acme.httpChallenge]
+      entryPoint = "web"

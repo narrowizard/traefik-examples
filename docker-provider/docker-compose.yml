@@ -11,9 +11,14 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /home/data/traefik:/etc/traefik
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   whoami:
     # A container that exposes an API to show its IP address
     image: containous/whoami
     labels:
+     - "traefik.enable=true"
      - "traefik.http.routers.whoami.rule=Host(`whoami.narro.me`)"
+     - "traefik.http.routers.whoami.entrypoints=web"
+     - "traefik.http.routers.whoami-secure.rule=Host(`whoami.narro.me`)"
+     - "traefik.http.routers.whoami-secure.entrypoints=web-secure"
+     - "traefik.http.routers.whoami-secure.tls.certresolver=http"
